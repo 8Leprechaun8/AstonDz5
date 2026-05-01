@@ -1,9 +1,22 @@
 package org.example;
 
+import org.example.entity.Student;
+import org.example.service.StudentService;
+import org.example.service.impl.StudentServiceImpl;
+import org.example.sort.Context;
+import org.example.sort.impl.*;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
+        StudentService studentService = StudentServiceImpl.getInstance();
+        List<Student> studentList = null;
+        Context context = new Context();
+
+
         Scanner inLibrary = new Scanner(System.in);
         mainMenu: while(true) {
             System.out.println("Введите способ, которым будет происходить ввод данных:\n" +
@@ -20,7 +33,7 @@ public class Main {
                     //ToDo
                     break;
                 case 3:
-                    //Todo
+                    studentList = studentService.findAll();
                     break;
                 case 0:
                 default:
@@ -41,19 +54,24 @@ public class Main {
             int num2 = inLibrary.nextInt();
             switch (num2) {
                 case 1:
-                    //ToDo
+                    context.setSort(new SortByAllFields());
+                    context.printAllSortedStudents(studentList);
                     break;
                 case 2:
-                    //ToDo
+                    context.setSort(new SortByGroupNumber());
+                    context.printAllSortedStudents(studentList);
                     break;
                 case 3:
-                    //ToDo
+                    context.setSort(new SortByAverageGrade());
+                    context.printAllSortedStudents(studentList);
                     break;
                 case 4:
-                    //ToDo
+                    context.setSort(new SortByRecordBookNumber());
+                    context.printAllSortedStudents(studentList);
                     break;
                 case 5:
-                    //ToDo
+                    context.setSort(new SortByRecordBookNumberSpecial());
+                    context.printAllSortedStudents(studentList);
                     break;
                 case 6:
                     //ToDo
