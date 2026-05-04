@@ -56,8 +56,7 @@ public class Main {
                                     .recordBookNumber(recordBookNumber)
                                     .build();
                             validator.validateAverageGrade(student);
-                            validator.validateRecordBookNumber(student, studentList);
-                            //ToDo exceptions
+                            validator.validateRecordBookNumber(student, studentList, false);
                             studentList.add(student);
                         }
                         break;
@@ -75,8 +74,7 @@ public class Main {
                                     .recordBookNumber(recordBookNumber)
                                     .build();
                             validator.validateAverageGrade(student);
-                            validator.validateRecordBookNumber(student, studentList);
-                            //ToDo exceptions
+                            validator.validateRecordBookNumber(student, studentList, false);
                             studentList.add(student);
                             System.out.println("---");
                             System.out.println(student);
@@ -85,6 +83,10 @@ public class Main {
                         break;
                     case 3:
                         studentList = studentService.findAll();
+                        for (Student student : studentList) {
+                            validator.validateAverageGrade(student);
+                            validator.validateRecordBookNumber(student, studentList, true);
+                        }
                         break;
                     case 0:
                     default:
