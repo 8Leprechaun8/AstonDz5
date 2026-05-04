@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface Validator {
 
-    void validateRecordBookNumber(Student student, List<Student> studentList)
+    void validateRecordBookNumber(Student student, List<Student> studentList, boolean isFromFile)
             throws RecordBookNumberIsFoundException, RecordBookNumberIsInvalidException;
 
     void validateAverageGrade(Student student) throws AverageGradeIsOutOfBoundsException;

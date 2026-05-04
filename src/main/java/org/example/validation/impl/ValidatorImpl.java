@@ -23,13 +23,13 @@ public class ValidatorImpl implements Validator {
     }
 
     @Override
-    public void validateRecordBookNumber(Student student, List<Student> studentList)
+    public void validateRecordBookNumber(Student student, List<Student> studentList, boolean isFromFile)
             throws RecordBookNumberIsFoundException, RecordBookNumberIsInvalidException {
         Integer id = student.getRecordBookNumber();
         long n = studentList.stream()
                 .filter(s -> id.equals(s.getRecordBookNumber()))
                 .count();
-        if (n > 0) {
+        if (!isFromFile && (n > 0) || isFromFile && (n > 1)) {
             throw new RecordBookNumberIsFoundException("Номер зачетной книжки не уникален");
         }
         if (id < 0) {
