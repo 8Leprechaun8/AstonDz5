@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collector;
 import java.util.stream.Stream;
 
-class CustomArrayList<T> implements CustomCollection<T> {
+ public class CustomArrayList<T> implements CustomCollection<T> {
     private static final int DEFAULT_CAPACITY = 10;
     private Object[] elements;
     private int size;
