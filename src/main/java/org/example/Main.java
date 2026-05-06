@@ -1,5 +1,7 @@
 package org.example;
 
+
+import org.example.collection.*;
 import org.example.entity.Student;
 import org.example.exception.AverageGradeIsOutOfBoundsException;
 import org.example.exception.RecordBookNumberIsFoundException;
@@ -12,8 +14,10 @@ import org.example.validation.Validator;
 import org.example.validation.impl.ValidatorImpl;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -130,7 +134,13 @@ public class Main {
                         //ToDo
                         break;
                     case 7:
-                        //ToDo
+                        Stream<Student> studentStream = studentList.stream();
+
+
+                        CustomArrayList<Student> customList = studentStream.collect(CustomArrayList.toCustomArrayList());
+                        SortCustomCollection sorter = new SortCustomCollection();
+                        CustomCollection<Student> sorted = sorter.sort(customList, Comparator.comparing(Student::getAverageGrade));
+                        sorter.printSortedStudents(sorted);
                         break;
                     case 8:
                         //ToDo
