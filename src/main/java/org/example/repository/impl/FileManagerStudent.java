@@ -9,7 +9,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FileManagerStudent implements StudentRepository {
 
@@ -57,6 +59,47 @@ public class FileManagerStudent implements StudentRepository {
             throw new RuntimeException(exception);
         }
         return studentList;
+    }
+
+    // TODO: Методы сортировки
+    public List<Student> sortStudentsByGroupNumber() {
+        List<Student> studentList = getStudentList();
+        studentList.sort(Comparator.comparing(Student::getGroupNumber));
+        return studentList;
+    }
+
+    public List<Student> sortStudentsByAverageGrade() {
+        List<Student> studentList = getStudentList();
+        studentList.sort(Comparator.comparingDouble(Student::getAverageGrade).reversed());
+        return studentList;
+    }
+
+    public List<Student> sortStudentsByRecordBookNumber() {
+        List<Student> studentList = getStudentList();
+        studentList.sort(Comparator.comparingInt(Student::getRecordBookNumber));
+        return studentList;
+    }
+
+    // TODO: Методы поиска
+    public List<Student> findStudentsByGroupNumber(String groupNumber) {
+        List<Student> studentList = getStudentList();
+        return studentList.stream()
+                .filter(student -> student.getGroupNumber().equals(groupNumber))
+                .collect(Collectors.toList());
+    }
+
+    public List<Student> findStudentsByAverageGrade(double minGrade) {
+        List<Student> studentList = getStudentList();
+        return studentList.stream()
+                .filter(student -> student.getAverageGrade() >= minGrade)
+                .collect(Collectors.toList());
+    }
+
+    public List<Student> findStudentsByRecordBookNumber(int recordBookNumber) {
+        List<Student> studentList = getStudentList();
+        return studentList.stream()
+                .filter(student -> student.getRecordBookNumber() == recordBookNumber)
+                .collect(Collectors.toList());
     }
 
     private File getFile(File file, String title) {
