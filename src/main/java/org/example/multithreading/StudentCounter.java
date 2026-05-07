@@ -2,12 +2,12 @@ package org.example.multithreading;
 
 import org.example.entity.Student;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class StudentCounter {
 
-    public static void countOccurencess(ArrayList<Student> list, Object target) throws InterruptedException {
+    public static void countOccurencess(List<Student> list, Object target) throws InterruptedException {
         if (list == null || list.isEmpty()) {
             System.out.println("Коллекция пуста. Вхождений: 0");
             return;
