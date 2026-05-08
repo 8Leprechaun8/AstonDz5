@@ -4,6 +4,7 @@ import org.example.entity.Student;
 import org.example.exception.AverageGradeIsOutOfBoundsException;
 import org.example.exception.RecordBookNumberIsFoundException;
 import org.example.exception.RecordBookNumberIsInvalidException;
+import org.example.repository.impl.FileManagerStudent;
 import org.example.service.StudentService;
 import org.example.service.impl.StudentServiceImpl;
 import org.example.sort.Context;
@@ -128,6 +129,49 @@ public class Main {
                         break;
                     case 6:
                         //ToDo
+
+//                        if (studentList == null || studentList.isEmpty()) {
+//                            System.out.println("Сначала создайте список студентов (выберите 1, 2 или 3).");
+//                            break;
+//                        }
+
+                        FileManagerStudent fileManager = FileManagerStudent.getInstance();
+
+                        // Выбираем сортировку
+                        System.out.println("Выберите критерий сортировки:");
+                        System.out.println("1. По номеру группы");
+                        System.out.println("2. По среднему баллу");
+                        System.out.println("3. По номеру зачётной книжки");
+                        System.out.print("Введите номер: ");
+                        int sortChoice = inStudent.nextInt();
+                        inStudent.nextLine();
+
+                        List<Student> sortedStudents;
+
+                        // Сортируем студентов в зависимости от выбора
+                        switch (sortChoice) {
+                            case 1:
+                                sortedStudents = fileManager.sortStudentsByGroupNumber();
+                                break;
+                            case 2:
+                                sortedStudents = fileManager.sortStudentsByAverageGrade();
+                                break;
+                            case 3:
+                                sortedStudents = fileManager.sortStudentsByRecordBookNumber();
+                                break;
+                            default:
+                                System.out.println("Некорректный выбор. Попробуйте ещё раз.");
+                                continue; // Выбираем заново если ошибся
+                        }
+
+                        // Запрашиваем имя файла
+                        System.out.print("Введите имя TXT файла (без расширения): ");
+                        String fileName = inStudent.nextLine();
+                        String filePath = fileName + ".txt";
+
+                        // Записываем отсортированных студентов в файл
+                        fileManager.appendSortedStudentsToTxtFile(sortedStudents, filePath);
+                        System.out.println("Отсортированные студенты записаны в файл: " + filePath);
                         break;
                     case 7:
                         //ToDo
