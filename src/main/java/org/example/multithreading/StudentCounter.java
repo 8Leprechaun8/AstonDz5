@@ -2,12 +2,12 @@ package org.example.multithreading;
 
 import org.example.entity.Student;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class StudentCounter {
 
-    public static void countOccurencess(List<Student> list, Object target) throws InterruptedException {
+    public static void countOccurencess(ArrayList<Student> list, Object target) throws InterruptedException {
         if (list == null || list.isEmpty()) {
             System.out.println("Коллекция пуста. Вхождений: 0");
             return;
@@ -30,7 +30,11 @@ public class StudentCounter {
             for (int i = 0; i < size; i++) {
                 extractedValues[i] = list.get(i).getRecordBookNumber();
             }
-        } else {
+        } else if (target instanceof Student) {
+            for (int i = 0; i < size; i++) {
+                extractedValues[i] = list.get(i);
+            }
+        }else {
             throw new IllegalArgumentException("Неподдерживаемый тип target: " +
                     (target == null ? "null" : target.getClass().getSimpleName()));
         }
@@ -68,7 +72,7 @@ public class StudentCounter {
 
         //Подсчёт вхождений всем потокам
         int totalCount = 0;
-        for (long count : threadResults) {
+        for (int count : threadResults) {
             totalCount += count;
         }
 
