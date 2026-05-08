@@ -30,7 +30,11 @@ public class StudentCounter {
             for (int i = 0; i < size; i++) {
                 extractedValues[i] = list.get(i).getRecordBookNumber();
             }
-        } else {
+        } else if (target instanceof Student) {
+            for (int i = 0; i < size; i++) {
+                extractedValues[i] = list.get(i);
+            }
+        }else {
             throw new IllegalArgumentException("Неподдерживаемый тип target: " +
                     (target == null ? "null" : target.getClass().getSimpleName()));
         }
@@ -68,7 +72,7 @@ public class StudentCounter {
 
         //Подсчёт вхождений всем потокам
         int totalCount = 0;
-        for (long count : threadResults) {
+        for (int count : threadResults) {
             totalCount += count;
         }
 
