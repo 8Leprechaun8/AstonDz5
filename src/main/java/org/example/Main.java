@@ -143,7 +143,7 @@ public class Main {
                         break;
                     case 8:
                         System.out.println("Выберите, поиск по какому элементу производится");
-                        System.out.println("(1 - groupNumber, 2 - averageGrade, 3 - recordBookNumber)");
+                        System.out.println("(1 - groupNumber, 2 - averageGrade, 3 - recordBookNumber, 4 - student)");
                         int num3 = inStudent.nextInt();
                         switch (num3) {
                             case 1:
@@ -161,6 +161,18 @@ public class Main {
                                 System.out.println("Введите recordBookNumber");
                                 Integer recordBookNumberTarget = inStudent.nextInt();
                                 StudentCounter.countOccurencess(studentList, recordBookNumberTarget);
+                                break;
+                            case 4:
+                                System.out.println("Введите student");
+                                System.out.println("Введите groupNumber");
+                                inStudent.nextLine();
+                                groupNumberTarget = inStudent.nextLine();
+                                System.out.println("Введите averageGrade");
+                                averageGradeTarget = inStudent.nextDouble();
+                                System.out.println("Введите recordBookNumber");
+                                recordBookNumberTarget = inStudent.nextInt();
+                                StudentCounter.countOccurencess(studentList, new Student(groupNumberTarget,
+                                        averageGradeTarget, recordBookNumberTarget));
                                 break;
                             default:
                                 break;
