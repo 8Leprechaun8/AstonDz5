@@ -1,10 +1,12 @@
 package org.example;
 
+
+import org.example.collection.*;
 import org.example.entity.Student;
 import org.example.exception.AverageGradeIsOutOfBoundsException;
 import org.example.exception.RecordBookNumberIsFoundException;
 import org.example.exception.RecordBookNumberIsInvalidException;
-import org.example.repository.impl.FileManagerStudent;
+import org.example.multithreading.StudentCounter;
 import org.example.service.StudentService;
 import org.example.service.impl.StudentServiceImpl;
 import org.example.sort.Context;
@@ -13,8 +15,10 @@ import org.example.validation.Validator;
 import org.example.validation.impl.ValidatorImpl;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -182,10 +186,48 @@ public class Main {
                         System.out.println("Отсортированные студенты записаны в файл: " + filePath);
                         break;
                     case 7:
-                        //ToDo
+                        Stream<Student> studentStream = studentList.stream();
+                        CustomArrayList<Student> customList = studentStream.collect(CustomArrayList.toCustomArrayList());
+                        SortCustomCollection sorter = new SortCustomCollection();
+                        CustomCollection<Student> sorted = sorter.sort(customList, Comparator.comparing(Student::getAverageGrade));
+                        sorter.printSortedStudents(sorted);
                         break;
                     case 8:
-                        //ToDo
+                        System.out.println("Выберите, поиск по какому элементу производится");
+                        System.out.println("(1 - groupNumber, 2 - averageGrade, 3 - recordBookNumber, 4 - student)");
+                        int num3 = inStudent.nextInt();
+                        switch (num3) {
+                            case 1:
+                                System.out.println("Введите groupNumber");
+                                inStudent.nextLine();
+                                String groupNumberTarget = inStudent.nextLine();
+                                StudentCounter.countOccurencess(studentList, groupNumberTarget);
+                                break;
+                            case 2:
+                                System.out.println("Введите averageGrade");
+                                Double averageGradeTarget = inStudent.nextDouble();
+                                StudentCounter.countOccurencess(studentList, averageGradeTarget);
+                                break;
+                            case 3:
+                                System.out.println("Введите recordBookNumber");
+                                Integer recordBookNumberTarget = inStudent.nextInt();
+                                StudentCounter.countOccurencess(studentList, recordBookNumberTarget);
+                                break;
+                            case 4:
+                                System.out.println("Введите student");
+                                System.out.println("Введите groupNumber");
+                                inStudent.nextLine();
+                                groupNumberTarget = inStudent.nextLine();
+                                System.out.println("Введите averageGrade");
+                                averageGradeTarget = inStudent.nextDouble();
+                                System.out.println("Введите recordBookNumber");
+                                recordBookNumberTarget = inStudent.nextInt();
+                                StudentCounter.countOccurencess(studentList, new Student(groupNumberTarget,
+                                        averageGradeTarget, recordBookNumberTarget));
+                                break;
+                            default:
+                                break;
+                        }
                         break;
                     case 0:
                     default:
@@ -195,6 +237,8 @@ public class Main {
                      RecordBookNumberIsFoundException |
                      RecordBookNumberIsInvalidException exception) {
                 System.out.println(exception.getMessage());
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
     }
