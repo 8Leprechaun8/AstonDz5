@@ -61,22 +61,19 @@ public class FileManagerStudent implements StudentRepository {
     }
 
     // TODO: Методы поиска
-    public List<Student> findStudentsByGroupNumber(String groupNumber) {
-        List<Student> studentList = getStudentList();
+    public List<Student> findStudentsByGroupNumber(String groupNumber, List<Student> studentList) {
         return studentList.stream()
                 .filter(student -> student.getGroupNumber().equals(groupNumber))
                 .collect(Collectors.toList());
     }
 
-    public List<Student> findStudentsByAverageGrade(double minGrade) {
-        List<Student> studentList = getStudentList();
+    public List<Student> findStudentsByAverageGrade(double minGrade, List<Student> studentList) {
         return studentList.stream()
                 .filter(student -> student.getAverageGrade() >= minGrade)
                 .collect(Collectors.toList());
     }
 
-    public List<Student> findStudentsByRecordBookNumber(int recordBookNumber) {
-        List<Student> studentList = getStudentList();
+    public List<Student> findStudentsByRecordBookNumber(int recordBookNumber, List<Student> studentList) {
         return studentList.stream()
                 .filter(student -> student.getRecordBookNumber() == recordBookNumber)
                 .collect(Collectors.toList());

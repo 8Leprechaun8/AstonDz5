@@ -105,9 +105,10 @@ public class Main {
                                 "3. Сортировка по averageGrade\n" +
                                 "4. Сортировка по recordBookNumber\n" +
                                 "5. Сортировка по recordBookNumber (Дополнительное задание 1)\n" +
-                                "6. Запись отсортированных коллекций/найденных значений в файл в режиме добавления данных (Дополнительное задание 2)\n" +
+                                "6. Запись отсортированных коллекций в файл в режиме добавления данных (Дополнительное задание 2)\n" +
                                 "7. Заполнение коллекций посредством стримов (Дополнительное задание 3)\n" +
                                 "8. Многопоточный метод, подсчитывающий количество вхождений элемента N в коллекцию и выводящий результат в консоль. (Дополнительное задание 4)\n" +
+                                "9. Запись найденных значений в файл в режиме добавления данных (Дополнительное задание 2)\n" +
                                 "0. Выход\n" +
                                 "Выберите действие:");
                 int num2 = inStudent.nextInt();
@@ -252,14 +253,14 @@ public class Main {
                                 // Поиск по номеру группы
                                 System.out.print("Введите номер группы: ");
                                 searchParameterFoundStudents = inStudent.nextLine();
-                                foundStudents = fileManager.findStudentsByGroupNumber(searchParameterFoundStudents);
+                                foundStudents = fileManager.findStudentsByGroupNumber(searchParameterFoundStudents, studentList);
                                 break;
                             case 2:
                                 // Поиск по среднему баллу
                                 System.out.print("Введите минимальный средний балл: ");
                                 double minGrade = inStudent.nextDouble();
                                 inStudent.nextLine();
-                                foundStudents = fileManager.findStudentsByAverageGrade(minGrade);
+                                foundStudents = fileManager.findStudentsByAverageGrade(minGrade, studentList);
                                 searchParameterFoundStudents = String.valueOf(minGrade); // Сохраняем балл как строку
                                 break;
                             case 3:
@@ -267,11 +268,11 @@ public class Main {
                                 System.out.print("Введите номер зачётной книжки: ");
                                 int recordBookNumber = inStudent.nextInt();
                                 inStudent.nextLine();
-                                foundStudents = fileManager.findStudentsByRecordBookNumber(recordBookNumber);
+                                foundStudents = fileManager.findStudentsByRecordBookNumber(recordBookNumber, studentList);
                                 searchParameterFoundStudents = String.valueOf(recordBookNumber); // Сохраняем ID как строку
                                 break;
                             default:
-                                System.out.println("Некорректный выбор.");
+                                System.out.println("Некорректный выбор. Попробуйте ещё раз.");
                                 break;
                         }
 
