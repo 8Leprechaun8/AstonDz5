@@ -9,4 +9,6 @@ public interface StudentRepository {
     Student saveStudent(Student student);
 
     List<Student> getStudentList();
+
+    void appendSortedStudentsToTxtFile(List<Student> studentList,  String filePath);
 }

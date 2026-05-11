@@ -28,4 +28,9 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> findAll() {
         return studentRepository.getStudentList();
     }
+
+    @Override
+    public void appendSortedStudentsToTxtFile(List<Student> studentList,  String filePath) {
+        studentRepository.appendSortedStudentsToTxtFile(studentList,  filePath);
+    }
 }

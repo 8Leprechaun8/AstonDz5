@@ -139,8 +139,6 @@ public class Main {
                             break;
                         }
 
-                        FileManagerStudent fileManager = FileManagerStudent.getInstance();
-
                         // Выбираем сортировку
                         System.out.println("Выберите критерий сортировки:");
                         System.out.println("1. По всем полям");
@@ -182,7 +180,7 @@ public class Main {
                         String filePath = fileName + ".txt";
 
                         // Записываем отсортированных студентов в файл
-                        fileManager.appendSortedStudentsToTxtFile(sortedStudents, filePath);
+                        studentService.appendSortedStudentsToTxtFile(sortedStudents, filePath);
                         System.out.println("Отсортированные студенты записаны в файл: " + filePath);
                         break;
                     case 7:
