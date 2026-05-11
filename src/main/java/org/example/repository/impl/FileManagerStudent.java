@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FileManagerStudent implements StudentRepository {
 
@@ -57,6 +58,61 @@ public class FileManagerStudent implements StudentRepository {
             throw new RuntimeException(exception);
         }
         return studentList;
+    }
+
+    // TODO: Методы поиска
+    public List<Student> findStudentsByGroupNumber(String groupNumber, List<Student> studentList) {
+        return studentList.stream()
+                .filter(student -> student.getGroupNumber().equals(groupNumber))
+                .collect(Collectors.toList());
+    }
+
+    public List<Student> findStudentsByAverageGrade(double minGrade, List<Student> studentList) {
+        return studentList.stream()
+                .filter(student -> student.getAverageGrade() >= minGrade)
+                .collect(Collectors.toList());
+    }
+
+    public List<Student> findStudentsByRecordBookNumber(int recordBookNumber, List<Student> studentList) {
+        return studentList.stream()
+                .filter(student -> student.getRecordBookNumber() == recordBookNumber)
+                .collect(Collectors.toList());
+    }
+
+    // TODO: Запись найденных студентов
+    public void appendFoundStudentsToTxtFile(List<Student> students, String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            writer.write("Найденные студенты:");
+            writer.newLine();
+            for (Student student : students) {
+                String studentLine = String.format("%s, %.2f, %d",
+                        student.getGroupNumber(),
+                        student.getAverageGrade(),
+                        student.getRecordBookNumber());
+                writer.write(studentLine);
+                writer.newLine();
+            }
+            System.out.println("Найденные студенты добавлены в TXT файл: " + filePath);
+        } catch (IOException e) {
+            System.err.println("Ошибка записи в TXT файл: " + e.getMessage());
+        }
+    }
+
+    // TODO: Запись отсортированных студентов
+    public void appendSortedStudentsToTxtFile(List<Student> students, String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            for (Student student : students) {
+                String studentLine = String.format("%s, %.2f, %d",
+                        student.getGroupNumber(),
+                        student.getAverageGrade(),
+                        student.getRecordBookNumber());
+                writer.write(studentLine);
+                writer.newLine();
+            }
+            System.out.println("Отсортированные студенты добавлены в TXT файл: " + filePath);
+        } catch (IOException e) {
+            System.err.println("Ошибка записи в TXT файл: " + e.getMessage());
+        }
     }
 
     private File getFile(File file, String title) {

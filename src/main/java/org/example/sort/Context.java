@@ -20,4 +20,8 @@ public class Context {
         }
         System.out.println("---------");
     }
+
+    public List<Student> sort(List<Student> studentList) {
+        return sort.sort(studentList);
+    }
 }
