@@ -5,10 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.entity.Student;
 import org.example.repository.StudentRepository;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -79,7 +76,7 @@ public class FileManagerStudent implements StudentRepository {
                 .collect(Collectors.toList());
     }
 
-    // TODO: Запись найденных студентов
+    // TODO: Запись найденных студентов txt
     public void appendFoundStudentsToTxtFile(List<Student> students, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write("Найденные студенты:");
@@ -98,7 +95,7 @@ public class FileManagerStudent implements StudentRepository {
         }
     }
 
-    // TODO: Запись отсортированных студентов
+    // TODO: Запись отсортированных студентов txt
     public void appendSortedStudentsToTxtFile(List<Student> students, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             for (Student student : students) {
@@ -112,6 +109,40 @@ public class FileManagerStudent implements StudentRepository {
             System.out.println("Отсортированные студенты добавлены в TXT файл: " + filePath);
         } catch (IOException e) {
             System.err.println("Ошибка записи в TXT файл: " + e.getMessage());
+        }
+    }
+
+    // TODO Запись отсортированных студентов csv
+    public void appendSortedStudentsToCsvFile(List<Student> students, String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            for (Student student : students) {
+                String csvLine = String.format("%s,%.2f,%d",
+                        student.getGroupNumber(),
+                        student.getAverageGrade(),
+                        student.getRecordBookNumber());
+                writer.write(csvLine);
+                writer.newLine();
+            }
+            System.out.println("Отсортированные студенты добавлены в CSV файл: " + filePath);
+        } catch (IOException e) {
+            System.err.println("Ошибка записи в CSV файл: " + e.getMessage());
+        }
+    }
+
+    // TODO: Запись найденных студентов csv
+    public void appendFoundStudentsToCsvFile(List<Student> students, String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            for (Student student : students) {
+                String csvLine = String.format("%s,%.2f,%d",
+                        student.getGroupNumber(),
+                        student.getAverageGrade(),
+                        student.getRecordBookNumber());
+                writer.write(csvLine);
+                writer.newLine();
+            }
+            System.out.println("Найденные студенты добавлены в CSV файл: " + filePath);
+        } catch (IOException e) {
+            System.err.println("Ошибка записи в CSV файл: " + e.getMessage());
         }
     }
 
