@@ -130,18 +130,19 @@ public class Main {
                     case 6:
                         //ToDo
 
-//                        if (studentList == null || studentList.isEmpty()) {
-//                            System.out.println("Сначала создайте список студентов (выберите 1, 2 или 3).");
-//                            break;
-//                        }
+                        if (studentList == null || studentList.isEmpty()) {
+                            System.out.println("Сначала создайте список студентов (выберите 1, 2 или 3).");
+                            break;
+                        }
 
                         FileManagerStudent fileManager = FileManagerStudent.getInstance();
 
                         // Выбираем сортировку
                         System.out.println("Выберите критерий сортировки:");
-                        System.out.println("1. По номеру группы");
+                        System.out.println("1. По всем полям");
                         System.out.println("2. По среднему баллу");
-                        System.out.println("3. По номеру зачётной книжки");
+                        System.out.println("3. По номеру группы");
+                        System.out.println("4. По номеру зачётной книжки");
                         System.out.print("Введите номер: ");
                         int sortChoice = inStudent.nextInt();
                         inStudent.nextLine();
@@ -151,13 +152,20 @@ public class Main {
                         // Сортируем студентов в зависимости от выбора
                         switch (sortChoice) {
                             case 1:
-                                sortedStudents = fileManager.sortStudentsByGroupNumber();
+                                context.setSort(new SortByAllFields());
+                                sortedStudents = context.sort(studentList);
                                 break;
                             case 2:
-                                sortedStudents = fileManager.sortStudentsByAverageGrade();
+                                context.setSort(new SortByAverageGrade());
+                                sortedStudents = context.sort(studentList);
                                 break;
                             case 3:
-                                sortedStudents = fileManager.sortStudentsByRecordBookNumber();
+                                context.setSort(new SortByGroupNumber());
+                                sortedStudents = context.sort(studentList);
+                                break;
+                            case 4:
+                                context.setSort(new SortByRecordBookNumber());
+                                sortedStudents = context.sort(studentList);
                                 break;
                             default:
                                 System.out.println("Некорректный выбор. Попробуйте ещё раз.");

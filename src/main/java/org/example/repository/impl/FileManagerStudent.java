@@ -61,25 +61,6 @@ public class FileManagerStudent implements StudentRepository {
         return studentList;
     }
 
-    // TODO: Методы сортировки
-    public List<Student> sortStudentsByGroupNumber() {
-        List<Student> studentList = getStudentList();
-        studentList.sort(Comparator.comparing(Student::getGroupNumber));
-        return studentList;
-    }
-
-    public List<Student> sortStudentsByAverageGrade() {
-        List<Student> studentList = getStudentList();
-        studentList.sort(Comparator.comparingDouble(Student::getAverageGrade).reversed());
-        return studentList;
-    }
-
-    public List<Student> sortStudentsByRecordBookNumber() {
-        List<Student> studentList = getStudentList();
-        studentList.sort(Comparator.comparingInt(Student::getRecordBookNumber));
-        return studentList;
-    }
-
     // TODO: Методы поиска
     public List<Student> findStudentsByGroupNumber(String groupNumber) {
         List<Student> studentList = getStudentList();
