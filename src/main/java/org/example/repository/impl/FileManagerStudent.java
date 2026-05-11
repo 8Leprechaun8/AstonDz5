@@ -9,7 +9,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -83,24 +82,7 @@ public class FileManagerStudent implements StudentRepository {
                 .collect(Collectors.toList());
     }
 
-    // TODO: Запись отсортированных студентов
-    public void appendSortedStudentsToTxtFile(List<Student> students, String filePath) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            for (Student student : students) {
-                String studentLine = String.format("%s, %.2f, %d",
-                        student.getGroupNumber(),
-                        student.getAverageGrade(),
-                        student.getRecordBookNumber());
-                writer.write(studentLine);
-                writer.newLine();
-            }
-            System.out.println("Отсортированные студенты добавлены в TXT файл: " + filePath);
-        } catch (IOException e) {
-            System.err.println("Ошибка записи в TXT файл: " + e.getMessage());
-        }
-    }
-
-    // TODO: апись найденных студентов
+    // TODO: Запись найденных студентов
     public void appendFoundStudentsToTxtFile(List<Student> students, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write("Найденные студенты:");
@@ -114,6 +96,23 @@ public class FileManagerStudent implements StudentRepository {
                 writer.newLine();
             }
             System.out.println("Найденные студенты добавлены в TXT файл: " + filePath);
+        } catch (IOException e) {
+            System.err.println("Ошибка записи в TXT файл: " + e.getMessage());
+        }
+    }
+
+    // TODO: Запись отсортированных студентов
+    public void appendSortedStudentsToTxtFile(List<Student> students, String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            for (Student student : students) {
+                String studentLine = String.format("%s, %.2f, %d",
+                        student.getGroupNumber(),
+                        student.getAverageGrade(),
+                        student.getRecordBookNumber());
+                writer.write(studentLine);
+                writer.newLine();
+            }
+            System.out.println("Отсортированные студенты добавлены в TXT файл: " + filePath);
         } catch (IOException e) {
             System.err.println("Ошибка записи в TXT файл: " + e.getMessage());
         }

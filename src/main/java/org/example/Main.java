@@ -7,6 +7,7 @@ import org.example.exception.AverageGradeIsOutOfBoundsException;
 import org.example.exception.RecordBookNumberIsFoundException;
 import org.example.exception.RecordBookNumberIsInvalidException;
 import org.example.multithreading.StudentCounter;
+import org.example.repository.impl.FileManagerStudent;
 import org.example.service.StudentService;
 import org.example.service.impl.StudentServiceImpl;
 import org.example.sort.Context;
@@ -225,6 +226,68 @@ public class Main {
                                 break;
                             default:
                                 break;
+                        }
+                        break;
+                    case 9:
+                        if (studentList == null || studentList.isEmpty()) {
+                            System.out.println("Сначала создайте список студентов (выберите 1, 2 или 3).");
+                            break;
+                        }
+
+                        FileManagerStudent fileManager = FileManagerStudent.getInstance();
+
+                        System.out.println("Выберите критерий поиска:");
+                        System.out.println("1. По номеру группы");
+                        System.out.println("2. По среднему баллу (>=)");
+                        System.out.println("3. По номеру зачётной книжки");
+                        System.out.print("Введите номер: ");
+                        int searchChoice = inStudent.nextInt();
+                        inStudent.nextLine(); // Очищаем буфер
+
+                        List<Student> foundStudents = null;
+                        String searchParameterFoundStudents = ""; // Для хранения параметра поиска (группа, балл, ID)
+
+                        switch (searchChoice) {
+                            case 1:
+                                // Поиск по номеру группы
+                                System.out.print("Введите номер группы: ");
+                                searchParameterFoundStudents = inStudent.nextLine();
+                                foundStudents = fileManager.findStudentsByGroupNumber(searchParameterFoundStudents);
+                                break;
+                            case 2:
+                                // Поиск по среднему баллу
+                                System.out.print("Введите минимальный средний балл: ");
+                                double minGrade = inStudent.nextDouble();
+                                inStudent.nextLine();
+                                foundStudents = fileManager.findStudentsByAverageGrade(minGrade);
+                                searchParameterFoundStudents = String.valueOf(minGrade); // Сохраняем балл как строку
+                                break;
+                            case 3:
+                                // Поиск по номеру зачётной книжки
+                                System.out.print("Введите номер зачётной книжки: ");
+                                int recordBookNumber = inStudent.nextInt();
+                                inStudent.nextLine();
+                                foundStudents = fileManager.findStudentsByRecordBookNumber(recordBookNumber);
+                                searchParameterFoundStudents = String.valueOf(recordBookNumber); // Сохраняем ID как строку
+                                break;
+                            default:
+                                System.out.println("Некорректный выбор.");
+                                break;
+                        }
+
+                        // Проверяем, есть ли найденные студенты
+                        if (foundStudents != null && !foundStudents.isEmpty()) {
+                            // Запрашиваем имя файла
+                            System.out.print("Введите имя TXT файла (без расширения): ");
+                            String fileNameToFound = inStudent.nextLine();
+                            String filePathToFound = fileNameToFound + ".txt";
+
+                            // Записываем найденных студентов в файл
+                            studentService.appendFoundStudentsToTxtFile(foundStudents, filePathToFound);
+                            System.out.println("Найденные студенты записаны в файл: " + filePathToFound);
+
+                        } else {
+                            System.out.println("Нет студентов, соответствующих критериям поиска.");
                         }
                         break;
                     case 0:

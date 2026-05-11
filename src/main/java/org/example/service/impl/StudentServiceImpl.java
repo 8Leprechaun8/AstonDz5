@@ -33,4 +33,9 @@ public class StudentServiceImpl implements StudentService {
     public void appendSortedStudentsToTxtFile(List<Student> studentList,  String filePath) {
         studentRepository.appendSortedStudentsToTxtFile(studentList,  filePath);
     }
+
+    @Override
+    public void appendFoundStudentsToTxtFile(List<Student> students, String filePath) {
+        studentRepository.appendFoundStudentsToTxtFile(students, filePath);
+    }
 }
