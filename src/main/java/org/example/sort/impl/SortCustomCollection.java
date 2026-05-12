@@ -16,7 +16,7 @@ public class SortCustomCollection {
     }
 
 
-    // Метод для вывода отсортированной кастомной коллекции студентов
+
     public void printSortedStudents(CustomCollection<Student> sortedCollection) {
         System.out.println("---------");
         for (Student student : sortedCollection) {
