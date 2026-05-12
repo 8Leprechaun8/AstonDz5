@@ -206,9 +206,35 @@ public class Main {
                     case 7:
                         Stream<Student> studentStream = studentList.stream();
                         CustomArrayList<Student> customList = studentStream.collect(CustomArrayList.toCustomArrayList());
-                        SortCustomCollection sorter = new SortCustomCollection();
-                        CustomCollection<Student> sorted = sorter.sort(customList, Comparator.comparing(Student::getAverageGrade));
-                        sorter.printSortedStudents(sorted);
+                        System.out.println(
+                                "======== Выберите действие: ========\n" +
+                                        "1. Сортировка по averageGrade  \n" +
+                                        "2. Сортировка по groupNumber\n" +
+                                        "3. Сортировка по recordBookNumber\n" +
+                                        "0. Выход\n" +
+                                        "Выберите действие:");
+                        int customSortChoice = inStudent.nextInt();
+
+                        switch (customSortChoice) {
+                            case 1:
+                                SortCustomCollection sorterAverageGrade = new SortCustomCollection();
+                                CustomCollection<Student> sortedAverageGrade = sorterAverageGrade.sort(customList, Comparator.comparing(Student::getAverageGrade));
+                                sorterAverageGrade.printSortedStudents(sortedAverageGrade);
+                                break;
+                            case 2:
+                                SortCustomCollection sorterGroupNumber = new SortCustomCollection();
+                                CustomCollection<Student> sortedGroupNumber = sorterGroupNumber.sort(customList, Comparator.comparing(Student::getGroupNumber));
+                                sorterGroupNumber.printSortedStudents(sortedGroupNumber);
+                                break;
+                            case 3:
+                                SortCustomCollection sorterRecordBookNumber = new SortCustomCollection();
+                                CustomCollection<Student> sortedRecordBookNumber = sorterRecordBookNumber.sort(customList, Comparator.comparing(Student::getRecordBookNumber));
+                                sorterRecordBookNumber.printSortedStudents(sortedRecordBookNumber);
+                                break;
+                            case 0:
+                            default:
+                                break mainMenu;
+                        }
                         break;
                     case 8:
                         System.out.println("Выберите, поиск по какому элементу производится");
