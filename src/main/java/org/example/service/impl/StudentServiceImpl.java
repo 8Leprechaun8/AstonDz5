@@ -38,4 +38,12 @@ public class StudentServiceImpl implements StudentService {
     public void appendFoundStudentsToTxtFile(List<Student> students, String filePath) {
         studentRepository.appendFoundStudentsToTxtFile(students, filePath);
     }
+
+    public void appendSortedStudentsToCsvFile(List<Student> students, String filePath) {
+        studentRepository.appendSortedStudentsToCsvFile(students, filePath);
+    }
+
+    public void appendFoundStudentsToCsvFile(List<Student> students, String filePath) {
+        studentRepository.appendFoundStudentsToCsvFile(students, filePath);
+    }
 }

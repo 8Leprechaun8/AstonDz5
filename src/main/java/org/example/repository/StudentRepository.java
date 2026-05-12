@@ -13,4 +13,8 @@ public interface StudentRepository {
     void appendSortedStudentsToTxtFile(List<Student> studentList,  String filePath);
 
     void appendFoundStudentsToTxtFile(List<Student> students, String filePath);
+
+    void appendSortedStudentsToCsvFile(List<Student> students, String filePath);
+
+    void appendFoundStudentsToCsvFile(List<Student> students, String filePath);
 }
