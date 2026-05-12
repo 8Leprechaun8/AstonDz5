@@ -184,7 +184,7 @@ public class Main {
 
 
                         // Запрашиваем имя файла
-                        System.out.print("Введите имя TXT файла (без расширения): ");
+                        System.out.print("Введите имя файла (без расширения): ");
                         String fileName = inStudent.nextLine();
                         String filePath = fileName + ".txt";
 
